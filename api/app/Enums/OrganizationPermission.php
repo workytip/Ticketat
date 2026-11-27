@@ -12,4 +12,6 @@ enum OrganizationPermission: string
     case UpdateOrganization = 'organization.update';
     case ViewMembers = 'members.view';
     case ManageMembers = 'members.manage';
+    case ViewVenues = 'venues.view';
+    case ManageVenues = 'venues.manage';
 }

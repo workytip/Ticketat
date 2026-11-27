@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\OrganizationController;
 use App\Http\Controllers\Api\V1\OrganizationMemberController;
 use App\Http\Controllers\Api\V1\SocialAuthController;
+use App\Http\Controllers\Api\V1\VenueController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,6 +42,8 @@ Route::prefix('v1')->name('v1.')->group(function () {
             Route::post('members', [OrganizationMemberController::class, 'store'])->name('members.store');
             Route::patch('members/{member}', [OrganizationMemberController::class, 'update'])->name('members.update');
             Route::delete('members/{member}', [OrganizationMemberController::class, 'destroy'])->name('members.destroy');
+
+            Route::apiResource('venues', VenueController::class);
         });
     });
 });

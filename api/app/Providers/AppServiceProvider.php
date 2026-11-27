@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Support\CurrentOrganization;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -15,7 +16,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Scoped: a fresh instance for every request and queued job, so a tenant never leaks into the next one.
+        $this->app->scoped(CurrentOrganization::class);
     }
 
     /**

@@ -6,6 +6,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Middleware\SubstituteBindings;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -19,6 +20,13 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'organization' => ResolveOrganization::class,
         ]);
+
+        // Resolve the tenant before route model binding, so nested models ({venue})
+        // are loaded through the tenant scope.
+        $middleware->prependToPriorityList(
+            before: SubstituteBindings::class,
+            prepend: ResolveOrganization::class,
+        );
 
         $middleware->api(append: [
             SetLocaleFromHeader::class,

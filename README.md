@@ -48,4 +48,4 @@ cd web && npm run lint && npm run build
 
 ## License
 
-MIT
+[MIT](LICENSE)

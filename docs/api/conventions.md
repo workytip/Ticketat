@@ -45,6 +45,12 @@ The version is part of the URL. A new version (`v2`) is created only for a **bre
 { "message": "These credentials do not match our records." }
 ```
 
+**Not found (404)** never names the model or reveals whether the resource exists:
+
+```json
+{ "message": "Not found." }
+```
+
 **Validation error (422):** `message` summarizes, `errors` lists every field:
 
 ```json

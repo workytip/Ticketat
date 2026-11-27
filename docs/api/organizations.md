@@ -25,6 +25,8 @@ All endpoints need `Authorization: Bearer <token>`.
 | Update name and slug | ✓ | ✓ | ✗ |
 | Add, change or remove **owners and managers** | ✓ | ✗ | ✗ |
 | Add, change or remove **staff** | ✓ | ✓ | ✗ |
+| View venues | ✓ | ✓ | ✓ |
+| Create, update, delete venues | ✓ | ✓ | ✗ |
 
 Rules:
 
@@ -231,3 +233,9 @@ Removes the membership in **this** organization only; the user keeps their accou
 | Tests (role matrix, isolation) | `tests/Feature/Organizations/*` |
 
 After a fresh database, seed the roles: `php artisan db:seed` (or `php artisan migrate --seed`).
+
+When a pull request adds permissions, run the roles seeder again (safe to repeat):
+
+```bash
+php artisan db:seed --class=RolesAndPermissionsSeeder
+```

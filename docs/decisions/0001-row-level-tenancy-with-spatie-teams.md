@@ -30,7 +30,9 @@ For roles:
 
 ## Consequences
 
-- Every query on tenant data must be scoped. Upcoming tenant tables (venues, events) will use a global scope trait so forgetting it is not possible, and tests check cross-tenant access returns `404`.
+- Every query on tenant data must be scoped. Top-level tenant models (venues, events) use the `BelongsToOrganization` trait: `OrganizationScope` filters every query by the current organization and **throws** when there is none, instead of returning every organization's rows. New rows get the current `organization_id` automatically. Tests check that another organization's ids return `404`.
+- Child tables (sections, seats) have no `organization_id`: they are only reached through their scoped parent. If a child ever needs to be queried on its own, it gets the column and the trait.
+- `ResolveOrganization` runs **before** route model binding (middleware priority in `bootstrap/app.php`), so nested route models are loaded through the scope. The current organization lives in a scoped container binding (`CurrentOrganization`), reset for every request and job.
 - Code that runs outside a request (queued jobs, commands) must set the team explicitly, never rely on a previous one. `MembershipService::inOrganization()` does this and restores the previous team.
 - Roles and permissions must be seeded after every fresh database (`php artisan db:seed`).
 - **Moving to database-per-tenant later** stays possible because the tenant is resolved in one middleware and every tenant row has `organization_id`. The likely path is hybrid: large organizers get their own database, a central catalog keeps cross-organizer listing. That would be a project of its own, not a configuration change.

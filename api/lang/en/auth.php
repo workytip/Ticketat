@@ -18,4 +18,6 @@ return [
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'logged_out' => 'Logged out.',
 
+    'social_failed' => 'Could not sign in with this provider. Please try again.',
+    'social_email_unverified' => 'Your email is not verified with this provider.',
 ];

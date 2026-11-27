@@ -1908,6 +1908,561 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Venues",
+      "item": [
+        {
+          "name": "List",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept-Language",
+                "value": "{{locale}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/organizations/{{orgSlug}}/venues",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizations",
+                "{{orgSlug}}",
+                "venues"
+              ]
+            },
+            "description": "Venues of the organization, without sections.\n\nDocs: docs/api/venues.md"
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "{{locale}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/organizations/{{orgSlug}}/venues",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations",
+                    "{{orgSlug}}",
+                    "venues"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 1,\n      \"name\": \"Cairo Opera House\",\n      \"address\": \"Gezira\",\n      \"city\": \"Cairo\",\n      \"seatCount\": 120,\n      \"createdAt\": \"2026-11-27T13:35:22+00:00\"\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept-Language",
+                "value": "{{locale}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/organizations/{{orgSlug}}/venues",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizations",
+                "{{orgSlug}}",
+                "venues"
+              ]
+            },
+            "description": "Create a venue and generate its seats (rows A..Z x seatsPerRow per section). Owner or manager. Saves `venueId` to the environment.\n\nDocs: docs/api/venues.md",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Cairo Opera House\",\n  \"address\": \"Gezira\",\n  \"city\": \"Cairo\",\n  \"sections\": [\n    {\n      \"name\": \"VIP\",\n      \"rows\": 2,\n      \"seatsPerRow\": 10\n    },\n    {\n      \"name\": \"Balcony\",\n      \"rows\": 5,\n      \"seatsPerRow\": 20\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "{{locale}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/organizations/{{orgSlug}}/venues",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations",
+                    "{{orgSlug}}",
+                    "venues"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Cairo Opera House\",\n  \"address\": \"Gezira\",\n  \"city\": \"Cairo\",\n  \"sections\": [\n    {\n      \"name\": \"VIP\",\n      \"rows\": 2,\n      \"seatsPerRow\": 10\n    },\n    {\n      \"name\": \"Balcony\",\n      \"rows\": 5,\n      \"seatsPerRow\": 20\n    }\n  ]\n}"
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"Cairo Opera House\",\n    \"address\": \"Gezira\",\n    \"city\": \"Cairo\",\n    \"seatCount\": 120,\n    \"sections\": [\n      {\n        \"id\": 1,\n        \"name\": \"VIP\",\n        \"rows\": [\n          \"A\",\n          \"B\"\n        ],\n        \"seatsPerRow\": 10,\n        \"seatCount\": 20\n      },\n      {\n        \"id\": 2,\n        \"name\": \"Balcony\",\n        \"rows\": [\n          \"A\",\n          \"B\",\n          \"C\",\n          \"D\",\n          \"E\"\n        ],\n        \"seatsPerRow\": 20,\n        \"seatCount\": 100\n      }\n    ],\n    \"createdAt\": \"2026-11-27T13:35:22+00:00\"\n  }\n}"
+            },
+            {
+              "name": "422 Invalid layout",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "{{locale}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/organizations/{{orgSlug}}/venues",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations",
+                    "{{orgSlug}}",
+                    "venues"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Cairo Opera House\",\n  \"address\": \"Gezira\",\n  \"city\": \"Cairo\",\n  \"sections\": [\n    {\n      \"name\": \"A\",\n      \"rows\": 27,\n      \"seatsPerRow\": 0\n    }\n  ]\n}"
+                }
+              },
+              "status": "Unprocessable Content",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The rows field must not be greater than 26. (and 1 more error)\",\n  \"errors\": {\n    \"sections.0.rows\": [\n      \"The rows field must not be greater than 26.\"\n    ],\n    \"sections.0.seatsPerRow\": [\n      \"The seats per row field must be at least 1.\"\n    ]\n  }\n}"
+            },
+            {
+              "name": "403 Staff",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "{{locale}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/organizations/{{orgSlug}}/venues",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations",
+                    "{{orgSlug}}",
+                    "venues"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Cairo Opera House\",\n  \"address\": \"Gezira\",\n  \"city\": \"Cairo\",\n  \"sections\": [\n    {\n      \"name\": \"VIP\",\n      \"rows\": 2,\n      \"seatsPerRow\": 10\n    },\n    {\n      \"name\": \"Balcony\",\n      \"rows\": 5,\n      \"seatsPerRow\": 20\n    }\n  ]\n}"
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"This action is unauthorized.\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201) { pm.environment.set('venueId', pm.response.json().data.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Show",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept-Language",
+                "value": "{{locale}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/organizations/{{orgSlug}}/venues/{{venueId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizations",
+                "{{orgSlug}}",
+                "venues",
+                "{{venueId}}"
+              ]
+            },
+            "description": "Venue with its sections. Another organization's venue id returns 404.\n\nDocs: docs/api/venues.md"
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "{{locale}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/organizations/{{orgSlug}}/venues/{{venueId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations",
+                    "{{orgSlug}}",
+                    "venues",
+                    "{{venueId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"Cairo Opera House\",\n    \"address\": \"Gezira\",\n    \"city\": \"Cairo\",\n    \"seatCount\": 120,\n    \"sections\": [\n      {\n        \"id\": 1,\n        \"name\": \"VIP\",\n        \"rows\": [\n          \"A\",\n          \"B\"\n        ],\n        \"seatsPerRow\": 10,\n        \"seatCount\": 20\n      },\n      {\n        \"id\": 2,\n        \"name\": \"Balcony\",\n        \"rows\": [\n          \"A\",\n          \"B\",\n          \"C\",\n          \"D\",\n          \"E\"\n        ],\n        \"seatsPerRow\": 20,\n        \"seatCount\": 100\n      }\n    ],\n    \"createdAt\": \"2026-11-27T13:35:22+00:00\"\n  }\n}"
+            },
+            {
+              "name": "404 Other organization",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "{{locale}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/organizations/{{orgSlug}}/venues/{{venueId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations",
+                    "{{orgSlug}}",
+                    "venues",
+                    "{{venueId}}"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Not found.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept-Language",
+                "value": "{{locale}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/organizations/{{orgSlug}}/venues/{{venueId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizations",
+                "{{orgSlug}}",
+                "venues",
+                "{{venueId}}"
+              ]
+            },
+            "description": "Name, address and city only. Sections and seats are fixed.\n\nDocs: docs/api/venues.md",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"city\": \"Giza\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "{{locale}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/organizations/{{orgSlug}}/venues/{{venueId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations",
+                    "{{orgSlug}}",
+                    "venues",
+                    "{{venueId}}"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"city\": \"Giza\"\n}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"Cairo Opera House\",\n    \"address\": \"Gezira\",\n    \"city\": \"Giza\",\n    \"seatCount\": 120,\n    \"sections\": [\n      {\n        \"id\": 1,\n        \"name\": \"VIP\",\n        \"rows\": [\n          \"A\",\n          \"B\"\n        ],\n        \"seatsPerRow\": 10,\n        \"seatCount\": 20\n      },\n      {\n        \"id\": 2,\n        \"name\": \"Balcony\",\n        \"rows\": [\n          \"A\",\n          \"B\",\n          \"C\",\n          \"D\",\n          \"E\"\n        ],\n        \"seatsPerRow\": 20,\n        \"seatCount\": 100\n      }\n    ],\n    \"createdAt\": \"2026-11-27T13:35:22+00:00\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept-Language",
+                "value": "{{locale}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/organizations/{{orgSlug}}/venues/{{venueId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizations",
+                "{{orgSlug}}",
+                "venues",
+                "{{venueId}}"
+              ]
+            },
+            "description": "Deletes the venue, its sections and seats.\n\nDocs: docs/api/venues.md"
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "{{locale}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/organizations/{{orgSlug}}/venues/{{venueId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations",
+                    "{{orgSlug}}",
+                    "venues",
+                    "{{venueId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Venue deleted.\"\n}"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

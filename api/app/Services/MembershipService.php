@@ -7,6 +7,7 @@ use App\Exceptions\Organization\AlreadyMemberException;
 use App\Exceptions\Organization\LastOwnerException;
 use App\Models\Organization;
 use App\Models\User;
+use App\Support\CurrentOrganization;
 use Closure;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -105,7 +106,8 @@ final class MembershipService
     }
 
     /**
-     * Run $callback with $organization as spatie's current team, then restore the previous team.
+     * Run $callback with $organization as the current organization and spatie's current team,
+     * then restore the previous ones. Use it in jobs, commands and anywhere outside a request.
      *
      * @template T
      *
@@ -114,13 +116,18 @@ final class MembershipService
      */
     public function inOrganization(Organization $organization, Closure $callback): mixed
     {
-        $previous = getPermissionsTeamId();
+        $current = app(CurrentOrganization::class);
+        $previousOrganization = $current->get();
+        $previousTeam = getPermissionsTeamId();
+
+        $current->set($organization);
         setPermissionsTeamId($organization->id);
 
         try {
             return $callback();
         } finally {
-            setPermissionsTeamId($previous);
+            $current->set($previousOrganization);
+            setPermissionsTeamId($previousTeam);
         }
     }
 

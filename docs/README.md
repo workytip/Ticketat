@@ -7,6 +7,7 @@
 | [Conventions](api/conventions.md) | Base URL, versioning, headers, casing, response and error shapes, status codes, localization, rate limits |
 | [Authentication](api/authentication.md) | Register, login, logout, current user, sign in with Google |
 | [Organizations](api/organizations.md) | Organizations (tenants), members, roles and permissions |
+| [Venues](api/venues.md) | Venues, sections and generated seats |
 
 ## Decisions
 
@@ -23,6 +24,6 @@ The [`postman/`](postman/) folder has a collection with every endpoint and a loc
 1. In Postman: **Import** → select both files in `docs/postman/`.
 2. Select the **Ticketat Local** environment (top right).
 3. Run **Auth → Register** or **Auth → Login**. The token is saved automatically and used by every protected request.
-4. **Organizations → Create** saves `orgSlug`, and **Members → Add** saves `memberId`, for the requests that need them.
+4. **Organizations → Create** saves `orgSlug`, **Members → Add** saves `memberId`, and **Venues → Create** saves `venueId`, for the requests that need them.
 
 The collection is updated in the same pull request as the endpoints it describes.

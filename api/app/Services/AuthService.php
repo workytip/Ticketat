@@ -51,7 +51,7 @@ final class AuthService
     /**
      * @return array{user: User, token: string}
      */
-    private function issueToken(User $user, string $deviceName): array
+    public function issueToken(User $user, string $deviceName): array
     {
         return [
             'user' => $user,

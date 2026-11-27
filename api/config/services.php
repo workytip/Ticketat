@@ -14,6 +14,13 @@ return [
     |
     */
 
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        // The frontend page Google sends the user back to; it then posts the code to the API.
+        'redirect' => env('GOOGLE_REDIRECT_URI', 'http://localhost:5173/auth/google/callback'),
+    ],
+
     'postmark' => [
         'key' => env('POSTMARK_API_KEY'),
     ],

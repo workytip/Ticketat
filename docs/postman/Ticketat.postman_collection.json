@@ -880,6 +880,1034 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Organizations",
+      "item": [
+        {
+          "name": "List mine",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept-Language",
+                "value": "{{locale}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/organizations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizations"
+              ]
+            },
+            "description": "Organizations the signed-in user belongs to, with their role in each.\n\nDocs: docs/api/organizations.md"
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "{{locale}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/organizations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 1,\n      \"name\": \"Cairo Jazz\",\n      \"slug\": \"cairo-jazz\",\n      \"role\": \"owner\",\n      \"createdAt\": \"2026-11-27T13:23:49+00:00\"\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept-Language",
+                "value": "{{locale}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/organizations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizations"
+              ]
+            },
+            "description": "Create an organization; the creator becomes its owner. `slug` is optional (generated from the name). Saves `orgSlug` to the environment.\n\nDocs: docs/api/organizations.md",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Cairo Jazz\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "{{locale}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/organizations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Cairo Jazz\"\n}"
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"Cairo Jazz\",\n    \"slug\": \"cairo-jazz\",\n    \"role\": \"owner\",\n    \"createdAt\": \"2026-11-27T13:23:49+00:00\"\n  }\n}"
+            },
+            {
+              "name": "422 Slug taken",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "{{locale}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/organizations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Cairo Jazz\",\n  \"slug\": \"cairo-jazz\"\n}"
+                }
+              },
+              "status": "Unprocessable Content",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The slug has already been taken.\",\n  \"errors\": {\n    \"slug\": [\n      \"The slug has already been taken.\"\n    ]\n  }\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201) { pm.environment.set('orgSlug', pm.response.json().data.slug); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Show",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept-Language",
+                "value": "{{locale}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/organizations/{{orgSlug}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizations",
+                "{{orgSlug}}"
+              ]
+            },
+            "description": "Members only. Non-members get 404.\n\nDocs: docs/api/organizations.md"
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "{{locale}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/organizations/{{orgSlug}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations",
+                    "{{orgSlug}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"Cairo Jazz\",\n    \"slug\": \"cairo-jazz\",\n    \"role\": \"owner\",\n    \"createdAt\": \"2026-11-27T13:23:49+00:00\"\n  }\n}"
+            },
+            {
+              "name": "404 Not a member",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "{{locale}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/organizations/{{orgSlug}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations",
+                    "{{orgSlug}}"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Not found.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept-Language",
+                "value": "{{locale}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/organizations/{{orgSlug}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizations",
+                "{{orgSlug}}"
+              ]
+            },
+            "description": "Owner or manager. Fields are optional.\n\nDocs: docs/api/organizations.md",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Cairo Jazz Nights\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "{{locale}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/organizations/{{orgSlug}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations",
+                    "{{orgSlug}}"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Cairo Jazz Nights\"\n}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"Cairo Jazz Nights\",\n    \"slug\": \"cairo-jazz\",\n    \"role\": \"owner\",\n    \"createdAt\": \"2026-11-27T13:23:49+00:00\"\n  }\n}"
+            },
+            {
+              "name": "403 Staff",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "{{locale}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/organizations/{{orgSlug}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations",
+                    "{{orgSlug}}"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Cairo Jazz Nights\"\n}"
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"This action is unauthorized.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Members",
+          "description": "Owners manage everyone; managers manage staff only. An organization keeps at least one owner. Docs: docs/api/organizations.md",
+          "item": [
+            {
+              "name": "List",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "{{locale}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/organizations/{{orgSlug}}/members",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations",
+                    "{{orgSlug}}",
+                    "members"
+                  ]
+                },
+                "description": "Every member can see the member list."
+              },
+              "response": [
+                {
+                  "name": "200 OK",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept-Language",
+                        "value": "{{locale}}"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/organizations/{{orgSlug}}/members",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "organizations",
+                        "{{orgSlug}}",
+                        "members"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"data\": [\n    {\n      \"id\": 3,\n      \"name\": \"Omar Hassan\",\n      \"email\": \"omar@example.com\",\n      \"role\": \"staff\"\n    },\n    {\n      \"id\": 2,\n      \"name\": \"Sara Ali\",\n      \"email\": \"sara@example.com\",\n      \"role\": \"owner\"\n    }\n  ]\n}"
+                }
+              ]
+            },
+            {
+              "name": "Add",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "{{locale}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/organizations/{{orgSlug}}/members",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations",
+                    "{{orgSlug}}",
+                    "members"
+                  ]
+                },
+                "description": "Add an existing user by email. Managers can only add `staff`. Saves `memberId` to the environment.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"omar@example.com\",\n  \"role\": \"staff\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [
+                {
+                  "name": "201 Created",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept-Language",
+                        "value": "{{locale}}"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/organizations/{{orgSlug}}/members",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "organizations",
+                        "{{orgSlug}}",
+                        "members"
+                      ]
+                    },
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"omar@example.com\",\n  \"role\": \"staff\"\n}"
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"data\": {\n    \"id\": 3,\n    \"name\": \"Omar Hassan\",\n    \"email\": \"omar@example.com\",\n    \"role\": \"staff\"\n  }\n}"
+                },
+                {
+                  "name": "422 Already a member",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept-Language",
+                        "value": "{{locale}}"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/organizations/{{orgSlug}}/members",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "organizations",
+                        "{{orgSlug}}",
+                        "members"
+                      ]
+                    },
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"omar@example.com\",\n  \"role\": \"staff\"\n}"
+                    }
+                  },
+                  "status": "Unprocessable Content",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"message\": \"This user is already a member of the organization.\"\n}"
+                },
+                {
+                  "name": "403 Manager adds a manager",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept-Language",
+                        "value": "{{locale}}"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/organizations/{{orgSlug}}/members",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "organizations",
+                        "{{orgSlug}}",
+                        "members"
+                      ]
+                    },
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"omar@example.com\",\n  \"role\": \"manager\"\n}"
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"message\": \"This action is unauthorized.\"\n}"
+                }
+              ],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "if (pm.response.code === 201) { pm.environment.set('memberId', pm.response.json().data.id); }"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Change role",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "{{locale}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/organizations/{{orgSlug}}/members/{{memberId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations",
+                    "{{orgSlug}}",
+                    "members",
+                    "{{memberId}}"
+                  ]
+                },
+                "description": "The actor must manage the member's current role and be allowed to give the new one.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"role\": \"manager\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [
+                {
+                  "name": "200 OK",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept-Language",
+                        "value": "{{locale}}"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/organizations/{{orgSlug}}/members/{{memberId}}",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "organizations",
+                        "{{orgSlug}}",
+                        "members",
+                        "{{memberId}}"
+                      ]
+                    },
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"role\": \"manager\"\n}"
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"data\": {\n    \"id\": 3,\n    \"name\": \"Omar Hassan\",\n    \"email\": \"omar@example.com\",\n    \"role\": \"manager\"\n  }\n}"
+                },
+                {
+                  "name": "422 Last owner",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept-Language",
+                        "value": "{{locale}}"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/organizations/{{orgSlug}}/members/{{memberId}}",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "organizations",
+                        "{{orgSlug}}",
+                        "members",
+                        "{{memberId}}"
+                      ]
+                    },
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"role\": \"manager\"\n}"
+                    }
+                  },
+                  "status": "Unprocessable Content",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"message\": \"The organization must keep at least one owner.\"\n}"
+                },
+                {
+                  "name": "404 Not a member",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept-Language",
+                        "value": "{{locale}}"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/organizations/{{orgSlug}}/members/{{memberId}}",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "organizations",
+                        "{{orgSlug}}",
+                        "members",
+                        "{{memberId}}"
+                      ]
+                    },
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"role\": \"manager\"\n}"
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"message\": \"Not found.\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "Remove",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "{{locale}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/organizations/{{orgSlug}}/members/{{memberId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations",
+                    "{{orgSlug}}",
+                    "members",
+                    "{{memberId}}"
+                  ]
+                },
+                "description": "Removes the membership in this organization only."
+              },
+              "response": [
+                {
+                  "name": "200 OK",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept-Language",
+                        "value": "{{locale}}"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/organizations/{{orgSlug}}/members/{{memberId}}",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "organizations",
+                        "{{orgSlug}}",
+                        "members",
+                        "{{memberId}}"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"message\": \"Member removed.\"\n}"
+                },
+                {
+                  "name": "422 Last owner",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept-Language",
+                        "value": "{{locale}}"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/organizations/{{orgSlug}}/members/{{memberId}}",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "organizations",
+                        "{{orgSlug}}",
+                        "members",
+                        "{{memberId}}"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Content",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"message\": \"The organization must keep at least one owner.\"\n}"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }
